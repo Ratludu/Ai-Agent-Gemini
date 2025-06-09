@@ -1,5 +1,11 @@
 import os 
 
+def is_within(parent, child):
+
+    abs_parent = os.path.abspath(parent) 
+    abs_child = os.path.abspath(child) 
+    print(abs_parent, abs_child)
+    return os.path.commonpath([abs_parent, abs_child]) == abs_parent 
 
 def get_files_info(working_directory,directory=None):
 
@@ -8,11 +14,11 @@ def get_files_info(working_directory,directory=None):
         return f'Error: "{directory}" is not a directory'
 
 
-    # check if the directory is a subdirectory of the working directory 
-    abs_working_dir = os.path.abspath(working_directory)
-    abs_directory = os.path.abspath(directory)
-    if not os.path.commonpath([abs_working_dir, abs_directory]) == abs_working_dir:
-        return f'Error: Cannot list "{directory}" as it is outside the permitted working directory' 
+    if not is_within(working_directory, directory):
+        return f"Error: Cannot list {directory} as it is outside the permitted working directoy"
+
+
+
 
     #loop through the files in the directory
     try:
