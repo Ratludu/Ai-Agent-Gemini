@@ -1,14 +1,6 @@
-from functions.get_files_info import get_files_info 
+from functions.get_files_info import get_files_info, get_file_content
 
+print(get_file_content("calculator", "main.py"))
+print(get_file_content("calculator", "pkg/calculator.py"))
+print(get_file_content("calculator", "/bin/cat"))
 
-tests = {
-
-    "test_1":("calculator","."),
-    "test_2":("calculator","pkg"),
-    "test_3":("calculator","/bin"),
-    "test_4":("calculator","../")
-}
-
-
-for name, params in tests.items():
-    print(get_files_info(params[0], params[1]))

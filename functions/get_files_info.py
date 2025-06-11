@@ -32,6 +32,28 @@ def get_files_info(working_directory,directory=None):
 
 
 
+def get_file_content(working_directory, file_path):
+
+    # if the file path is outside the working directory then return a string error
+    full_file_path = os.path.join(working_directory,file_path)
+
+    if not os.path.isfile(full_file_path):
+        return f'Error: "{full_file_path}" is not a file'
+
+    if not is_within(working_directory, full_file_path):
+        return f"Error: cannot get contents of {full_file_path} as it is outside the permitted working directory"
+
+    try: 
+        # if there is a file read it in and return the contents as a string
+        with open(full_file_path, "r") as f:
+            result = f.read(10000)
+
+        if len(result) == 10000:
+            result += f' File "{file_path}" truncated at 10000 characters'
+        return result
+    except Exception as e:
+        return f"Error: {e}" 
+
 
 
 
