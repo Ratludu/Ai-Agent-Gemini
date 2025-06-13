@@ -10,6 +10,9 @@ def is_within(parent, child):
 def get_files_info(working_directory,directory=None):
 
     # check if the working directory exists 
+    if directory is None:
+        directory = "."
+
     new_directory = os.path.join(os.path.abspath(working_directory),directory)
 
     if not os.path.isdir(new_directory):

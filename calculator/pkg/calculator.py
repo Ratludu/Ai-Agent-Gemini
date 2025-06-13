@@ -18,7 +18,17 @@ class Calculator:
     def evaluate(self, expression):
         if not expression or expression.isspace():
             return None
-        tokens = expression.strip().split()
+
+        # Insert spaces around operators if they are missing
+        new_expression = ""
+        for char in expression:
+            if char in self.operators:
+                new_expression += " " + char + " "
+            else:
+                new_expression += char
+        expression = new_expression.strip()
+
+        tokens = expression.split()
         return self._evaluate_infix(tokens)
 
     def _evaluate_infix(self, tokens):
@@ -29,6 +39,7 @@ class Calculator:
             if token in self.operators:
                 while (
                     operators
+                    and len(operators) > 0
                     and operators[-1] in self.operators
                     and self.precedence[operators[-1]] >= self.precedence[token]
                 ):
